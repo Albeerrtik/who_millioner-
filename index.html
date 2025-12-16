@@ -1284,41 +1284,68 @@
         }
 
         // Выбор ответа
-        function selectAnswer(selectedIndex) {
-            if (!gameActive) return;
+function selectAnswer(selectedIndex) {
+    if (!gameActive) return;
+    
+    const questionData = selectedQuestions[currentQuestion];
+    const buttons = document.querySelectorAll('.answer-btn');
+    const correctIndex = questionData.correct;
+    
+    // Если выбран правильный ответ
+    if (selectedIndex === correctIndex) {
+        buttons[selectedIndex].classList.add('correct');
+        
+        // Блокируем все кнопки
+        buttons.forEach(btn => {
+            btn.classList.add('disabled');
+            btn.onclick = null;
+        });
+        
+        // Переход к следующему вопросу
+        setTimeout(() => {
+            currentQuestion++;
             
-            const questionData = selectedQuestions[currentQuestion];
-            const buttons = document.querySelectorAll('.answer-btn');
-            const correctIndex = questionData.correct;
+            if (currentQuestion >= selectedQuestions.length) {
+                moneyWon = moneyLevels[moneyLevels.length - 1];
+                endGame();
+            } else {
+                showQuestion();
+            }
+        }, 1500);
+        return;
+    }
+    
+    // Если выбран неправильный ответ
+    if (selectedIndex !== correctIndex) {
+        buttons[selectedIndex].classList.add('wrong');
+        
+        // Если активно право на ошибку
+        if (mistakeRightActive) {
+            mistakeRightActive = false;
+            document.getElementById('mistakeIndicator').style.display = 'none';
             
+            // Только блокируем неправильный ответ, не показывая правильный
+            buttons[selectedIndex].classList.add('disabled');
+            buttons[selectedIndex].onclick = null;
+            
+            // Даем возможность выбрать другой ответ
+            return;
+        } else {
+            // Если права на ошибку нет - показываем правильный ответ
+            buttons[correctIndex].classList.add('correct');
+            
+            // Блокируем все кнопки
             buttons.forEach(btn => {
                 btn.classList.add('disabled');
                 btn.onclick = null;
             });
             
-            if (selectedIndex !== correctIndex) {
-                buttons[selectedIndex].classList.add('wrong');
-                
-                if (mistakeRightActive) {
-                    mistakeRightActive = false;
-                    document.getElementById('mistakeIndicator').style.display = 'none';
-                    
-                    setTimeout(() => {
-                        buttons.forEach(btn => {
-                            btn.classList.remove('correct', 'wrong', 'disabled');
-                        });
-                        
-                        buttons.forEach((btn, index) => {
-                            btn.onclick = () => selectAnswer(index);
-                        });
-                    }, 1500);
-                    return;
-                } else {
-                    gameActive = false;
-                    setTimeout(endGame, 1500);
-                    return;
-                }
-            }
+            gameActive = false;
+            setTimeout(endGame, 1500);
+            return;
+        }
+    }
+}
             
             setTimeout(() => {
                 currentQuestion++;
@@ -1389,7 +1416,13 @@
             document.getElementById('hintMistake').disabled = true;
             document.getElementById('hintMistake').classList.add('used');
             document.getElementById('mistakeIndicator').style.display = 'block';
-            
+
+            const buttons = document.querySelectorAll('.answer-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('correct', 'wrong', 'disabled');
+                const index = parseInt(btn.dataset.index);
+                btn.onclick = () => selectAnswer(index);
+            });
             // НЕ показываем правильный ответ - убрана анимация
             // Просто активируем защиту на этот вопрос
         }
