@@ -11,7 +11,6 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         body {
             background: linear-gradient(135deg, #0c2461, #1e3799);
             color: white;
@@ -19,12 +18,10 @@
             padding: 20px;
             position: relative;
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-
         /* Кредит в углу */
         .credit {
             position: fixed;
@@ -40,7 +37,6 @@
             border: 2px solid #f9ca24;
             box-shadow: 0 0 15px rgba(249, 202, 36, 0.5);
         }
-
         /* Экран приветствия */
         .welcome-screen {
             text-align: center;
@@ -50,20 +46,17 @@
             margin-top: 50px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-
         .welcome-screen h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
             color: #f9ca24;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
-
         .welcome-screen h2 {
             font-size: 2rem;
             margin-bottom: 30px;
             color: #7efff5;
         }
-
         .welcome-screen p {
             font-size: 1.2rem;
             margin-bottom: 40px;
@@ -72,7 +65,6 @@
             margin-right: auto;
             line-height: 1.6;
         }
-
         .start-btn {
             background: linear-gradient(45deg, #f0932b, #f9ca24);
             color: #0c2461;
@@ -85,17 +77,14 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-
         .start-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
-
         /* Экран игры */
         .game-screen {
             display: none;
         }
-
         .header {
             display: flex;
             justify-content: space-between;
@@ -105,14 +94,12 @@
             background: rgba(0, 0, 0, 0.5);
             border-radius: 15px;
         }
-
         .money-ladder {
             width: 300px;
             background: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 15px;
         }
-
         .money-item {
             padding: 10px;
             margin: 5px 0;
@@ -120,19 +107,16 @@
             font-weight: bold;
             transition: all 0.3s ease;
         }
-
         .money-item.current {
             background: linear-gradient(45deg, #f0932b, #f9ca24);
             color: #0c2461;
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(240, 147, 43, 0.7);
         }
-
         .money-item.safe {
             background: rgba(46, 204, 113, 0.3);
             border-left: 4px solid #2ecc71;
         }
-
         .question-container {
             flex: 1;
             margin-left: 30px;
@@ -140,27 +124,23 @@
             padding: 30px;
             border-radius: 15px;
         }
-
         .question-number {
             font-size: 1.2rem;
             color: #7efff5;
             margin-bottom: 10px;
         }
-
         .question-text {
             font-size: 1.8rem;
             margin-bottom: 30px;
             line-height: 1.4;
             min-height: 120px;
         }
-
         .answers-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 30px;
         }
-
         .answer-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.2);
@@ -174,29 +154,24 @@
             display: flex;
             align-items: center;
         }
-
         .answer-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
-
         .answer-btn.correct {
             background: linear-gradient(45deg, #2ecc71, #27ae60);
             color: white;
             border-color: #2ecc71;
         }
-
         .answer-btn.wrong {
             background: linear-gradient(45deg, #e74c3c, #c0392b);
             color: white;
             border-color: #e74c3c;
         }
-
         .answer-btn.disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
         .answer-letter {
             display: inline-block;
             width: 40px;
@@ -208,14 +183,12 @@
             margin-right: 15px;
             font-weight: bold;
         }
-
         .hints-container {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-top: 20px;
         }
-
         .hint-btn {
             background: linear-gradient(45deg, #8e44ad, #9b59b6);
             color: white;
@@ -229,21 +202,17 @@
             align-items: center;
             gap: 10px;
         }
-
         .hint-btn:hover:not(:disabled) {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-
         .hint-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-
         .hint-btn.used {
             background: linear-gradient(45deg, #34495e, #2c3e50);
         }
-
         /* Экран результатов */
         .result-screen {
             display: none;
@@ -253,20 +222,17 @@
             border-radius: 20px;
             margin-top: 50px;
         }
-
         .result-screen h2 {
             font-size: 2.5rem;
             margin-bottom: 30px;
             color: #f9ca24;
         }
-
         .won-amount {
             font-size: 4rem;
             color: #2ecc71;
             margin: 30px 0;
             text-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
         }
-
         .restart-btn {
             background: linear-gradient(45deg, #3498db, #2980b9);
             color: white;
@@ -278,12 +244,10 @@
             margin-top: 30px;
             transition: all 0.3s ease;
         }
-
         .restart-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-
         /* Модальное окно помощи зала */
         .audience-modal {
             display: none;
@@ -297,7 +261,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .audience-content {
             background: linear-gradient(135deg, #1e3799, #0c2461);
             padding: 40px;
@@ -306,13 +269,11 @@
             max-width: 600px;
             text-align: center;
         }
-
         .audience-content h3 {
             font-size: 2rem;
             margin-bottom: 30px;
             color: #f9ca24;
         }
-
         .audience-bars {
             display: flex;
             justify-content: space-between;
@@ -320,7 +281,6 @@
             height: 300px;
             margin: 30px 0;
         }
-
         .audience-bar {
             width: 22%;
             background: linear-gradient(to top, #3498db, #2980b9);
@@ -328,7 +288,6 @@
             position: relative;
             transition: height 1s ease;
         }
-
         .audience-percent {
             position: absolute;
             top: -40px;
@@ -338,7 +297,6 @@
             font-size: 1.5rem;
             font-weight: bold;
         }
-
         .audience-letter {
             position: absolute;
             bottom: -40px;
@@ -349,7 +307,6 @@
             font-weight: bold;
             color: #f9ca24;
         }
-
         .close-audience {
             background: #e74c3c;
             color: white;
@@ -360,7 +317,6 @@
             font-size: 1.2rem;
             margin-top: 20px;
         }
-
         /* Индикатор права на ошибку */
         .mistake-indicator {
             position: fixed;
@@ -376,39 +332,37 @@
             z-index: 100;
             animation: pulse 2s infinite;
         }
-
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
-
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
             }
-            
+           
             .money-ladder {
                 width: 100%;
                 margin-bottom: 20px;
             }
-            
+           
             .question-container {
                 margin-left: 0;
             }
-            
+           
             .answers-grid {
                 grid-template-columns: 1fr;
             }
-            
+           
             .welcome-screen h1 {
                 font-size: 2.5rem;
             }
-            
+           
             .question-text {
                 font-size: 1.4rem;
             }
-            
+           
             .mistake-indicator {
                 position: relative;
                 top: 0;
@@ -418,7 +372,7 @@
                 text-align: center;
                 font-size: 1rem;
             }
-            
+           
             .credit {
                 position: relative;
                 bottom: 0;
@@ -437,12 +391,10 @@
 <body>
     <!-- Кредит в углу -->
     <div class="credit">Создано Альбертом Гатауллиным</div>
-
     <!-- Индикатор права на ошибку -->
     <div class="mistake-indicator" id="mistakeIndicator">
         ✅ ПРАВО НА ОШИБКУ АКТИВНО
     </div>
-
     <div class="container">
         <!-- Экран приветствия -->
         <div class="welcome-screen" id="welcomeScreen">
@@ -455,7 +407,6 @@
             </p>
             <button class="start-btn" onclick="startGame()">НАЧАТЬ ИГРУ!</button>
         </div>
-
         <!-- Экран игры -->
         <div class="game-screen" id="gameScreen">
             <div class="header">
@@ -480,7 +431,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Экран результатов -->
         <div class="result-screen" id="resultScreen">
             <h2>ИГРА ОКОНЧЕНА</h2>
@@ -488,7 +438,6 @@
             <p>Вы ответили правильно на <span id="correctAnswers">0</span> из 15 вопросов</p>
             <button class="restart-btn" onclick="restartGame()">ИГРАТЬ СНОВА</button>
         </div>
-
         <!-- Модальное окно помощи зала -->
         <div class="audience-modal" id="audienceModal">
             <div class="audience-content">
@@ -500,7 +449,6 @@
             </div>
         </div>
     </div>
-
     <script>
         // База вопросов (15 блоков по 4 вопроса)
         const questionsDatabase = [
@@ -1150,17 +1098,14 @@
                 }
             ]
         ];
-
         // Денежные суммы для каждого уровня
         const moneyLevels = [
             100, 200, 300, 500, 1000,
             2000, 4000, 8000, 16000, 32000,
             64000, 125000, 250000, 500000, 1000000
         ];
-
         // Несгораемые суммы
         const safeLevels = [4, 9]; // Индексы несгораемых сумм (1000 и 32000)
-
         // Переменные игры
         let currentQuestion = 0;
         let selectedQuestions = [];
@@ -1170,20 +1115,18 @@
         let usedAudience = false;
         let mistakeRightActive = false;
         let moneyWon = 0;
-
         // Запуск игры
         function startGame() {
             document.getElementById('welcomeScreen').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
             document.getElementById('resultScreen').style.display = 'none';
             document.getElementById('mistakeIndicator').style.display = 'none';
-            
+           
             resetGame();
             selectRandomQuestions();
             initMoneyLadder();
             showQuestion();
         }
-
         // Сброс игры
         function resetGame() {
             currentQuestion = 0;
@@ -1194,7 +1137,7 @@
             usedAudience = false;
             mistakeRightActive = false;
             moneyWon = 0;
-            
+           
             document.getElementById('hint5050').disabled = false;
             document.getElementById('hint5050').classList.remove('used');
             document.getElementById('hintMistake').disabled = false;
@@ -1202,7 +1145,6 @@
             document.getElementById('hintAudience').disabled = false;
             document.getElementById('hintAudience').classList.remove('used');
         }
-
         // Выбор случайных вопросов
         function selectRandomQuestions() {
             selectedQuestions = [];
@@ -1215,12 +1157,11 @@
                 });
             }
         }
-
         // Инициализация лестницы сумм
         function initMoneyLadder() {
             const ladder = document.getElementById('moneyLadder');
             ladder.innerHTML = '';
-            
+           
             for (let i = moneyLevels.length - 1; i >= 0; i--) {
                 const moneyItem = document.createElement('div');
                 moneyItem.className = 'money-item';
@@ -1230,32 +1171,31 @@
                 if (i === currentQuestion) {
                     moneyItem.classList.add('current');
                 }
-                
+               
                 const formattedMoney = moneyLevels[i].toLocaleString();
                 moneyItem.textContent = `$${formattedMoney}`;
                 ladder.appendChild(moneyItem);
             }
         }
-
         // Показать вопрос
         function showQuestion() {
             if (!gameActive) return;
-            
+           
             mistakeRightActive = false;
             document.getElementById('mistakeIndicator').style.display = 'none';
-            
+           
             const questionData = selectedQuestions[currentQuestion];
-            
-            document.getElementById('questionNumber').textContent = 
+           
+            document.getElementById('questionNumber').textContent =
                 `Вопрос ${currentQuestion + 1} из 15 ($${moneyLevels[currentQuestion].toLocaleString()})`;
-            
+           
             document.getElementById('questionText').textContent = questionData.question;
-            
+           
             const answersGrid = document.getElementById('answersGrid');
             answersGrid.innerHTML = '';
-            
+           
             const letters = ['A', 'B', 'C', 'D'];
-            
+           
             questionData.answers.forEach((answer, index) => {
                 const button = document.createElement('button');
                 button.className = 'answer-btn';
@@ -1267,10 +1207,9 @@
                 button.onclick = () => selectAnswer(index);
                 answersGrid.appendChild(button);
             });
-            
+           
             updateMoneyLadder();
         }
-
         // Обновить лестницу сумм
         function updateMoneyLadder() {
             const moneyItems = document.querySelectorAll('.money-item');
@@ -1282,29 +1221,28 @@
                 }
             });
         }
-
         // Выбор ответа
 function selectAnswer(selectedIndex) {
     if (!gameActive) return;
-    
+   
     const questionData = selectedQuestions[currentQuestion];
     const buttons = document.querySelectorAll('.answer-btn');
     const correctIndex = questionData.correct;
-    
+   
     // Если выбран правильный ответ
     if (selectedIndex === correctIndex) {
         buttons[selectedIndex].classList.add('correct');
-        
+       
         // Блокируем все кнопки
         buttons.forEach(btn => {
             btn.classList.add('disabled');
             btn.onclick = null;
         });
-        
+       
         // Переход к следующему вопросу
         setTimeout(() => {
             currentQuestion++;
-            
+           
             if (currentQuestion >= selectedQuestions.length) {
                 moneyWon = moneyLevels[moneyLevels.length - 1];
                 endGame();
@@ -1314,55 +1252,42 @@ function selectAnswer(selectedIndex) {
         }, 1500);
         return;
     }
-    
+   
     // Если выбран неправильный ответ
     if (selectedIndex !== correctIndex) {
         buttons[selectedIndex].classList.add('wrong');
-        
+       
         // Если активно право на ошибку
         if (mistakeRightActive) {
             mistakeRightActive = false;
             document.getElementById('mistakeIndicator').style.display = 'none';
-            
+           
             // Только блокируем неправильный ответ, не показывая правильный
             buttons[selectedIndex].classList.add('disabled');
             buttons[selectedIndex].onclick = null;
-            
+           
             // Даем возможность выбрать другой ответ
             return;
         } else {
             // Если права на ошибку нет - показываем правильный ответ
             buttons[correctIndex].classList.add('correct');
-            
+           
             // Блокируем все кнопки
             buttons.forEach(btn => {
                 btn.classList.add('disabled');
                 btn.onclick = null;
             });
-            
+           
             gameActive = false;
             setTimeout(endGame, 1500);
             return;
         }
     }
 }
-            
-            setTimeout(() => {
-                currentQuestion++;
-                
-                if (currentQuestion >= selectedQuestions.length) {
-                    moneyWon = moneyLevels[moneyLevels.length - 1];
-                    endGame();
-                } else {
-                    showQuestion();
-                }
-            }, 1500);
-        }
-
         // Использовать подсказку
         function useHint(hintType) {
             if (!gameActive) return;
-            
+           
             switch(hintType) {
                 case '5050':
                     use5050Hint();
@@ -1375,48 +1300,45 @@ function selectAnswer(selectedIndex) {
                     break;
             }
         }
-
         // Подсказка 50/50
         function use5050Hint() {
             if (used5050) return;
-            
+           
             used5050 = true;
             document.getElementById('hint5050').disabled = true;
             document.getElementById('hint5050').classList.add('used');
-            
+           
             const questionData = selectedQuestions[currentQuestion];
             const correctIndex = questionData.correct;
             const buttons = document.querySelectorAll('.answer-btn');
-            
+           
             let wrongAnswers = [];
             for (let i = 0; i < 4; i++) {
                 if (i !== correctIndex) {
                     wrongAnswers.push(i);
                 }
             }
-            
+           
             const toRemove = [];
             toRemove.push(wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)]);
             wrongAnswers = wrongAnswers.filter(idx => idx !== toRemove[0]);
             toRemove.push(wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)]);
-            
+           
             toRemove.forEach(index => {
                 buttons[index].style.opacity = '0.3';
                 buttons[index].classList.add('disabled');
                 buttons[index].onclick = null;
             });
         }
-
         // Право на ошибку (без показа правильного ответа)
         function useMistakeHint() {
             if (usedMistake) return;
-            
+           
             usedMistake = true;
             mistakeRightActive = true;
             document.getElementById('hintMistake').disabled = true;
             document.getElementById('hintMistake').classList.add('used');
             document.getElementById('mistakeIndicator').style.display = 'block';
-
             const buttons = document.querySelectorAll('.answer-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('correct', 'wrong', 'disabled');
@@ -1426,22 +1348,21 @@ function selectAnswer(selectedIndex) {
             // НЕ показываем правильный ответ - убрана анимация
             // Просто активируем защиту на этот вопрос
         }
-
         // Помощь зала
         function useAudienceHint() {
             if (usedAudience) return;
-            
+           
             usedAudience = true;
             document.getElementById('hintAudience').disabled = true;
             document.getElementById('hintAudience').classList.add('used');
-            
+           
             const questionData = selectedQuestions[currentQuestion];
             const correctIndex = questionData.correct;
-            
+           
             let percentages = [0, 0, 0, 0];
-            
+           
             percentages[correctIndex] = 40 + Math.random() * 30;
-            
+           
             let remaining = 100 - percentages[correctIndex];
             for (let i = 0; i < 4; i++) {
                 if (i !== correctIndex) {
@@ -1449,69 +1370,66 @@ function selectAnswer(selectedIndex) {
                     remaining -= percentages[i];
                 }
             }
-            
+           
             if (remaining > 0) {
                 const randomIndex = Math.floor(Math.random() * 4);
                 percentages[randomIndex] += remaining;
             }
-            
+           
             percentages = percentages.map(p => Math.round(p));
-            
+           
             const sum = percentages.reduce((a, b) => a + b, 0);
             if (sum !== 100) {
                 percentages[correctIndex] += (100 - sum);
             }
-            
+           
             showAudienceModal(percentages);
         }
-
         // Показать модальное окно помощи зала
         function showAudienceModal(percentages) {
             const modal = document.getElementById('audienceModal');
             const bars = document.getElementById('audienceBars');
-            
+           
             bars.innerHTML = '';
             const letters = ['A', 'B', 'C', 'D'];
-            
+           
             const maxPercent = Math.max(...percentages);
-            
+           
             percentages.forEach((percent, index) => {
                 const barContainer = document.createElement('div');
                 barContainer.style.width = '22%';
                 barContainer.style.display = 'flex';
                 barContainer.style.flexDirection = 'column';
                 barContainer.style.alignItems = 'center';
-                
+               
                 const bar = document.createElement('div');
                 bar.className = 'audience-bar';
                 bar.style.height = `${(percent / maxPercent) * 200}px`;
-                
+               
                 const percentText = document.createElement('div');
                 percentText.className = 'audience-percent';
                 percentText.textContent = `${percent}%`;
-                
+               
                 const letterText = document.createElement('div');
                 letterText.className = 'audience-letter';
                 letterText.textContent = letters[index];
-                
+               
                 bar.appendChild(percentText);
                 barContainer.appendChild(bar);
                 barContainer.appendChild(letterText);
                 bars.appendChild(barContainer);
             });
-            
+           
             modal.style.display = 'flex';
         }
-
         // Закрыть модальное окно помощи зала
         function closeAudience() {
             document.getElementById('audienceModal').style.display = 'none';
         }
-
         // Завершение игры
         function endGame() {
             gameActive = false;
-            
+           
             if (currentQuestion >= selectedQuestions.length) {
                 moneyWon = moneyLevels[moneyLevels.length - 1];
             } else {
@@ -1523,21 +1441,19 @@ function selectAnswer(selectedIndex) {
                 }
                 moneyWon = safeMoney;
             }
-            
+           
             document.getElementById('gameScreen').style.display = 'none';
-            
+           
             const resultScreen = document.getElementById('resultScreen');
             resultScreen.style.display = 'block';
-            
+           
             document.getElementById('wonAmount').textContent = `$${moneyWon.toLocaleString()}`;
             document.getElementById('correctAnswers').textContent = currentQuestion;
         }
-
         // Перезапуск игры
         function restartGame() {
             startGame();
         }
-
         // Инициализация при загрузке страницы
         window.onload = function() {
             // Дополнительная инициализация при необходимости
