@@ -28,14 +28,17 @@
         /* Кредит в углу */
         .credit {
             position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
+            bottom: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #f9ca24;
             z-index: 1000;
-            padding: 5px 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 5px;
+            padding: 8px 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            border: 2px solid #f9ca24;
+            box-shadow: 0 0 15px rgba(249, 202, 36, 0.5);
         }
 
         /* Экран приветствия */
@@ -365,42 +368,13 @@
             right: 20px;
             background: rgba(46, 204, 113, 0.9);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 10px;
             font-weight: bold;
+            font-size: 1.1rem;
             display: none;
             z-index: 100;
             animation: pulse 2s infinite;
-        }
-
-        /* Подсветка правильного ответа при использовании права на ошибку */
-        .correct-reveal {
-            animation: correctReveal 2s ease-in-out;
-        }
-
-        @keyframes correctReveal {
-            0% { 
-                background: rgba(255, 255, 255, 0.1);
-                border-color: rgba(255, 255, 255, 0.2);
-            }
-            20% { 
-                background: linear-gradient(45deg, #2ecc71, #27ae60);
-                border-color: #2ecc71;
-                transform: scale(1.05);
-                box-shadow: 0 0 20px rgba(46, 204, 113, 0.7);
-            }
-            80% { 
-                background: linear-gradient(45deg, #2ecc71, #27ae60);
-                border-color: #2ecc71;
-                transform: scale(1.05);
-                box-shadow: 0 0 20px rgba(46, 204, 113, 0.7);
-            }
-            100% { 
-                background: rgba(255, 255, 255, 0.1);
-                border-color: rgba(255, 255, 255, 0.2);
-                transform: scale(1);
-                box-shadow: none;
-            }
         }
 
         @keyframes pulse {
@@ -442,6 +416,7 @@
                 margin: 10px auto;
                 width: 90%;
                 text-align: center;
+                font-size: 1rem;
             }
             
             .credit {
@@ -451,6 +426,10 @@
                 text-align: center;
                 margin-top: 20px;
                 background: none;
+                border: none;
+                box-shadow: none;
+                font-size: 1.1rem;
+                padding: 5px;
             }
         }
     </style>
@@ -523,7 +502,7 @@
     </div>
 
     <script>
-        // База вопросов (15 блоков по 4 вопроса) - оставляем без изменений
+        // База вопросов (15 блоков по 4 вопроса)
         const questionsDatabase = [
             // Блок 1 (самые простые)
             [
@@ -1189,30 +1168,19 @@
         let used5050 = false;
         let usedMistake = false;
         let usedAudience = false;
-        let mistakeRightActive = false; // Активно ли право на ошибку на текущем вопросе
+        let mistakeRightActive = false;
         let moneyWon = 0;
 
         // Запуск игры
         function startGame() {
-            // Скрыть экран приветствия
             document.getElementById('welcomeScreen').style.display = 'none';
-            // Показать экран игры
             document.getElementById('gameScreen').style.display = 'block';
-            // Скрыть экран результатов
             document.getElementById('resultScreen').style.display = 'none';
-            // Скрыть индикатор права на ошибку
             document.getElementById('mistakeIndicator').style.display = 'none';
             
-            // Сбросить переменные игры
             resetGame();
-            
-            // Выбрать случайные вопросы из каждого блока
             selectRandomQuestions();
-            
-            // Инициализировать лестницу сумм
             initMoneyLadder();
-            
-            // Показать первый вопрос
             showQuestion();
         }
 
@@ -1227,7 +1195,6 @@
             mistakeRightActive = false;
             moneyWon = 0;
             
-            // Включить подсказки
             document.getElementById('hint5050').disabled = false;
             document.getElementById('hint5050').classList.remove('used');
             document.getElementById('hintMistake').disabled = false;
@@ -1254,7 +1221,6 @@
             const ladder = document.getElementById('moneyLadder');
             ladder.innerHTML = '';
             
-            // Добавляем суммы в обратном порядке для отображения сверху вниз
             for (let i = moneyLevels.length - 1; i >= 0; i--) {
                 const moneyItem = document.createElement('div');
                 moneyItem.className = 'money-item';
@@ -1265,7 +1231,6 @@
                     moneyItem.classList.add('current');
                 }
                 
-                // Форматируем сумму с разделителями
                 const formattedMoney = moneyLevels[i].toLocaleString();
                 moneyItem.textContent = `$${formattedMoney}`;
                 ladder.appendChild(moneyItem);
@@ -1276,20 +1241,16 @@
         function showQuestion() {
             if (!gameActive) return;
             
-            // Сбрасываем флаг права на ошибку для нового вопроса
             mistakeRightActive = false;
             document.getElementById('mistakeIndicator').style.display = 'none';
             
             const questionData = selectedQuestions[currentQuestion];
             
-            // Обновить номер вопроса
             document.getElementById('questionNumber').textContent = 
                 `Вопрос ${currentQuestion + 1} из 15 ($${moneyLevels[currentQuestion].toLocaleString()})`;
             
-            // Обновить текст вопроса
             document.getElementById('questionText').textContent = questionData.question;
             
-            // Обновить варианты ответов
             const answersGrid = document.getElementById('answersGrid');
             answersGrid.innerHTML = '';
             
@@ -1307,7 +1268,6 @@
                 answersGrid.appendChild(button);
             });
             
-            // Обновить лестницу сумм
             updateMoneyLadder();
         }
 
@@ -1316,7 +1276,6 @@
             const moneyItems = document.querySelectorAll('.money-item');
             moneyItems.forEach((item, index) => {
                 item.classList.remove('current');
-                // Инвертируем индекс, так как суммы отображаются в обратном порядке
                 const reversedIndex = moneyLevels.length - 1 - index;
                 if (reversedIndex === currentQuestion) {
                     item.classList.add('current');
@@ -1332,51 +1291,41 @@
             const buttons = document.querySelectorAll('.answer-btn');
             const correctIndex = questionData.correct;
             
-            // Отключить все кнопки
             buttons.forEach(btn => {
                 btn.classList.add('disabled');
                 btn.onclick = null;
             });
             
-            // Показать правильный и неправильный ответы
             buttons[correctIndex].classList.add('correct');
             
             if (selectedIndex !== correctIndex) {
                 buttons[selectedIndex].classList.add('wrong');
                 
-                // Проверить право на ошибку
                 if (mistakeRightActive) {
-                    // Право на ошибку использовано на этом вопросе
                     mistakeRightActive = false;
                     document.getElementById('mistakeIndicator').style.display = 'none';
                     
-                    // Позволить выбрать другой ответ
                     setTimeout(() => {
-                        // Убрать подсветку правильного/неправильного
                         buttons.forEach(btn => {
                             btn.classList.remove('correct', 'wrong', 'disabled');
                         });
                         
-                        // Включить кнопки снова, но без права на ошибку
                         buttons.forEach((btn, index) => {
                             btn.onclick = () => selectAnswer(index);
                         });
                     }, 1500);
                     return;
                 } else {
-                    // Игра окончена
                     gameActive = false;
                     setTimeout(endGame, 1500);
                     return;
                 }
             }
             
-            // Правильный ответ
             setTimeout(() => {
                 currentQuestion++;
                 
                 if (currentQuestion >= selectedQuestions.length) {
-                    // Игрок выиграл миллион!
                     moneyWon = moneyLevels[moneyLevels.length - 1];
                     endGame();
                 } else {
@@ -1414,7 +1363,6 @@
             const correctIndex = questionData.correct;
             const buttons = document.querySelectorAll('.answer-btn');
             
-            // Найти два неправильных ответа для удаления
             let wrongAnswers = [];
             for (let i = 0; i < 4; i++) {
                 if (i !== correctIndex) {
@@ -1422,13 +1370,11 @@
                 }
             }
             
-            // Выбрать случайные два неправильных ответа
             const toRemove = [];
             toRemove.push(wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)]);
             wrongAnswers = wrongAnswers.filter(idx => idx !== toRemove[0]);
             toRemove.push(wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)]);
             
-            // Скрыть выбранные неправильные ответы
             toRemove.forEach(index => {
                 buttons[index].style.opacity = '0.3';
                 buttons[index].classList.add('disabled');
@@ -1436,7 +1382,7 @@
             });
         }
 
-        // Право на ошибку (действует только на текущий вопрос)
+        // Право на ошибку (без показа правильного ответа)
         function useMistakeHint() {
             if (usedMistake) return;
             
@@ -1446,18 +1392,8 @@
             document.getElementById('hintMistake').classList.add('used');
             document.getElementById('mistakeIndicator').style.display = 'block';
             
-            // Случайно показываем правильный ответ на 2 секунды
-            const questionData = selectedQuestions[currentQuestion];
-            const correctIndex = questionData.correct;
-            const buttons = document.querySelectorAll('.answer-btn');
-            
-            // Добавляем анимацию подсветки правильного ответа
-            buttons[correctIndex].classList.add('correct-reveal');
-            
-            // Через 2 секунды убираем анимацию
-            setTimeout(() => {
-                buttons[correctIndex].classList.remove('correct-reveal');
-            }, 2000);
+            // НЕ показываем правильный ответ - убрана анимация
+            // Просто активируем защиту на этот вопрос
         }
 
         // Помощь зала
@@ -1471,14 +1407,10 @@
             const questionData = selectedQuestions[currentQuestion];
             const correctIndex = questionData.correct;
             
-            // Генерируем проценты помощи зала
-            // Правильный ответ получает наибольший процент, но не всегда самый большой
             let percentages = [0, 0, 0, 0];
             
-            // Базовые проценты
-            percentages[correctIndex] = 40 + Math.random() * 30; // 40-70% для правильного
+            percentages[correctIndex] = 40 + Math.random() * 30;
             
-            // Распределяем остальные проценты
             let remaining = 100 - percentages[correctIndex];
             for (let i = 0; i < 4; i++) {
                 if (i !== correctIndex) {
@@ -1487,22 +1419,18 @@
                 }
             }
             
-            // Немного увеличим оставшийся процент для случайного ответа
             if (remaining > 0) {
                 const randomIndex = Math.floor(Math.random() * 4);
                 percentages[randomIndex] += remaining;
             }
             
-            // Округляем проценты
             percentages = percentages.map(p => Math.round(p));
             
-            // Корректируем сумму до 100%
             const sum = percentages.reduce((a, b) => a + b, 0);
             if (sum !== 100) {
                 percentages[correctIndex] += (100 - sum);
             }
             
-            // Показываем модальное окно
             showAudienceModal(percentages);
         }
 
@@ -1514,7 +1442,6 @@
             bars.innerHTML = '';
             const letters = ['A', 'B', 'C', 'D'];
             
-            // Находим максимальную высоту для масштабирования
             const maxPercent = Math.max(...percentages);
             
             percentages.forEach((percent, index) => {
@@ -1554,13 +1481,9 @@
         function endGame() {
             gameActive = false;
             
-            // Определяем выигранную сумму
             if (currentQuestion >= selectedQuestions.length) {
-                // Игрок ответил на все вопросы
                 moneyWon = moneyLevels[moneyLevels.length - 1];
             } else {
-                // Игрок ошибся
-                // Находим последнюю несгораемую сумму
                 let safeMoney = 0;
                 for (let i = 0; i < safeLevels.length; i++) {
                     if (safeLevels[i] < currentQuestion) {
@@ -1570,14 +1493,11 @@
                 moneyWon = safeMoney;
             }
             
-            // Скрыть экран игры
             document.getElementById('gameScreen').style.display = 'none';
             
-            // Показать экран результатов
             const resultScreen = document.getElementById('resultScreen');
             resultScreen.style.display = 'block';
             
-            // Обновить информацию о выигрыше
             document.getElementById('wonAmount').textContent = `$${moneyWon.toLocaleString()}`;
             document.getElementById('correctAnswers').textContent = currentQuestion;
         }
@@ -1589,7 +1509,7 @@
 
         // Инициализация при загрузке страницы
         window.onload = function() {
-            // Можно добавить дополнительную инициализацию при необходимости
+            // Дополнительная инициализация при необходимости
         };
     </script>
 </body>
