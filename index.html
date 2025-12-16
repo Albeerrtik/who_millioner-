@@ -17,11 +17,25 @@
             color: white;
             min-height: 100vh;
             padding: 20px;
+            position: relative;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        /* Кредит в углу */
+        .credit {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 1000;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
         }
 
         /* Экран приветствия */
@@ -359,6 +373,36 @@
             animation: pulse 2s infinite;
         }
 
+        /* Подсветка правильного ответа при использовании права на ошибку */
+        .correct-reveal {
+            animation: correctReveal 2s ease-in-out;
+        }
+
+        @keyframes correctReveal {
+            0% { 
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+            20% { 
+                background: linear-gradient(45deg, #2ecc71, #27ae60);
+                border-color: #2ecc71;
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(46, 204, 113, 0.7);
+            }
+            80% { 
+                background: linear-gradient(45deg, #2ecc71, #27ae60);
+                border-color: #2ecc71;
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(46, 204, 113, 0.7);
+            }
+            100% { 
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.2);
+                transform: scale(1);
+                box-shadow: none;
+            }
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -399,13 +443,25 @@
                 width: 90%;
                 text-align: center;
             }
+            
+            .credit {
+                position: relative;
+                bottom: 0;
+                right: 0;
+                text-align: center;
+                margin-top: 20px;
+                background: none;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Кредит в углу -->
+    <div class="credit">Создано Альбертом Гатауллиным</div>
+
     <!-- Индикатор права на ошибку -->
     <div class="mistake-indicator" id="mistakeIndicator">
-        ✅ ПРАВО НА ОШИБКУ АКТИВНО ТОЛЬКО НА ЭТОТ ВОПРОС
+        ✅ ПРАВО НА ОШИБКУ АКТИВНО
     </div>
 
     <div class="container">
@@ -416,8 +472,7 @@
             <p>
                 Проверьте свои знания по обществознанию!<br>
                 Ответьте на 15 вопросов разной сложности и выиграйте до $1,000,000.<br>
-                Используйте подсказки: "50/50", "Право на ошибку" и "Помощь зала".<br>
-                <strong>Право на ошибку действует только на один текущий вопрос!</strong>
+                <strong>Добро пожаловать в интеллектуальное состязание!</strong>
             </p>
             <button class="start-btn" onclick="startGame()">НАЧАТЬ ИГРУ!</button>
         </div>
@@ -1390,6 +1445,19 @@
             document.getElementById('hintMistake').disabled = true;
             document.getElementById('hintMistake').classList.add('used');
             document.getElementById('mistakeIndicator').style.display = 'block';
+            
+            // Случайно показываем правильный ответ на 2 секунды
+            const questionData = selectedQuestions[currentQuestion];
+            const correctIndex = questionData.correct;
+            const buttons = document.querySelectorAll('.answer-btn');
+            
+            // Добавляем анимацию подсветки правильного ответа
+            buttons[correctIndex].classList.add('correct-reveal');
+            
+            // Через 2 секунды убираем анимацию
+            setTimeout(() => {
+                buttons[correctIndex].classList.remove('correct-reveal');
+            }, 2000);
         }
 
         // Помощь зала
