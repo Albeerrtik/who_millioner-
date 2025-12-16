@@ -344,6 +344,27 @@
             margin-top: 20px;
         }
 
+        /* Индикатор права на ошибку */
+        .mistake-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(46, 204, 113, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: none;
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -369,10 +390,24 @@
             .question-text {
                 font-size: 1.4rem;
             }
+            
+            .mistake-indicator {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 10px auto;
+                width: 90%;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Индикатор права на ошибку -->
+    <div class="mistake-indicator" id="mistakeIndicator">
+        ✅ ПРАВО НА ОШИБКУ АКТИВНО ТОЛЬКО НА ЭТОТ ВОПРОС
+    </div>
+
     <div class="container">
         <!-- Экран приветствия -->
         <div class="welcome-screen" id="welcomeScreen">
@@ -381,7 +416,8 @@
             <p>
                 Проверьте свои знания по обществознанию!<br>
                 Ответьте на 15 вопросов разной сложности и выиграйте до $1,000,000.<br>
-                Используйте подсказки: "50/50", "Право на ошибку" и "Помощь зала".
+                Используйте подсказки: "50/50", "Право на ошибку" и "Помощь зала".<br>
+                <strong>Право на ошибку действует только на один текущий вопрос!</strong>
             </p>
             <button class="start-btn" onclick="startGame()">НАЧАТЬ ИГРУ!</button>
         </div>
@@ -432,7 +468,7 @@
     </div>
 
     <script>
-        // База вопросов (15 блоков по 4 вопроса)
+        // База вопросов (15 блоков по 4 вопроса) - оставляем без изменений
         const questionsDatabase = [
             // Блок 1 (самые простые)
             [
@@ -915,7 +951,7 @@
                         "а) Уровень экономического роста",
                         "б) Уровень человеческого развития",
                         "в) Уровень социального неравенства (концентрацию доходов)",
-                        "г) Уровень свободы предпринимательства"
+                        "г) Уровень свобода предпринимательства"
                     ],
                     correct: 2
                 },
@@ -1098,7 +1134,7 @@
         let used5050 = false;
         let usedMistake = false;
         let usedAudience = false;
-        let hasMistakeRight = false;
+        let mistakeRightActive = false; // Активно ли право на ошибку на текущем вопросе
         let moneyWon = 0;
 
         // Запуск игры
@@ -1109,6 +1145,8 @@
             document.getElementById('gameScreen').style.display = 'block';
             // Скрыть экран результатов
             document.getElementById('resultScreen').style.display = 'none';
+            // Скрыть индикатор права на ошибку
+            document.getElementById('mistakeIndicator').style.display = 'none';
             
             // Сбросить переменные игры
             resetGame();
@@ -1131,7 +1169,7 @@
             used5050 = false;
             usedMistake = false;
             usedAudience = false;
-            hasMistakeRight = false;
+            mistakeRightActive = false;
             moneyWon = 0;
             
             // Включить подсказки
@@ -1182,6 +1220,10 @@
         // Показать вопрос
         function showQuestion() {
             if (!gameActive) return;
+            
+            // Сбрасываем флаг права на ошибку для нового вопроса
+            mistakeRightActive = false;
+            document.getElementById('mistakeIndicator').style.display = 'none';
             
             const questionData = selectedQuestions[currentQuestion];
             
@@ -1248,17 +1290,28 @@
                 buttons[selectedIndex].classList.add('wrong');
                 
                 // Проверить право на ошибку
-                if (hasMistakeRight) {
-                    hasMistakeRight = false;
+                if (mistakeRightActive) {
+                    // Право на ошибку использовано на этом вопросе
+                    mistakeRightActive = false;
+                    document.getElementById('mistakeIndicator').style.display = 'none';
+                    
+                    // Позволить выбрать другой ответ
                     setTimeout(() => {
-                        // Продолжить игру после неправильного ответа с правом на ошибку
-                        enableAnswerButtons();
-                    }, 2000);
+                        // Убрать подсветку правильного/неправильного
+                        buttons.forEach(btn => {
+                            btn.classList.remove('correct', 'wrong', 'disabled');
+                        });
+                        
+                        // Включить кнопки снова, но без права на ошибку
+                        buttons.forEach((btn, index) => {
+                            btn.onclick = () => selectAnswer(index);
+                        });
+                    }, 1500);
                     return;
                 } else {
                     // Игра окончена
                     gameActive = false;
-                    setTimeout(endGame, 2000);
+                    setTimeout(endGame, 1500);
                     return;
                 }
             }
@@ -1274,16 +1327,7 @@
                 } else {
                     showQuestion();
                 }
-            }, 2000);
-        }
-
-        // Включить кнопки ответов (после использования права на ошибку)
-        function enableAnswerButtons() {
-            const buttons = document.querySelectorAll('.answer-btn');
-            buttons.forEach((btn, index) => {
-                btn.classList.remove('disabled', 'correct', 'wrong');
-                btn.onclick = () => selectAnswer(index);
-            });
+            }, 1500);
         }
 
         // Использовать подсказку
@@ -1337,16 +1381,15 @@
             });
         }
 
-        // Право на ошибку
+        // Право на ошибку (действует только на текущий вопрос)
         function useMistakeHint() {
             if (usedMistake) return;
             
             usedMistake = true;
-            hasMistakeRight = true;
+            mistakeRightActive = true;
             document.getElementById('hintMistake').disabled = true;
             document.getElementById('hintMistake').classList.add('used');
-            
-            alert('Теперь у вас есть право на одну ошибку!');
+            document.getElementById('mistakeIndicator').style.display = 'block';
         }
 
         // Помощь зала
